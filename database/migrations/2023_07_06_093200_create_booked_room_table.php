@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('booked_room', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id');
+            $table->foreignId('room_id')->nullable()->index('fk_booked_room_to_room');
             $table->date('date')->nullable();
             $table->string('order_no');
             $table->timestamps();

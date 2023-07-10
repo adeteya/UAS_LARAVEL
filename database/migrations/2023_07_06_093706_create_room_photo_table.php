@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('room_photo', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id');
+            $table->foreignId('room_id')->nullable()->index('fk_room_photo_to_room');
             $table->longText('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();

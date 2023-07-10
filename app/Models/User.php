@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -17,6 +18,8 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use SoftDeletes;
+
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +61,21 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function detail_user()
+    {
+        return $this->belongsTo('App\Models\DetailUser', 'customer_id', 'id');
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo('App\Models\orders', 'customer_id', 'id');
+    }
+
+    // one to many
+    public function role_user()
+    {
+        return $this->hasMany('App\Models\ManagementAccess\RoleUser', 'user_id');
+    }
 }

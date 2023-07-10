@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
-            $table->foreignId('hotel_id');
+            $table->foreignId('user_id')->nullable()->index('fk_orders_to_users');
+            $table->foreignId('hotel_id')->nullable()->index('fk_orders_to_hotel');
             $table->string('order_no')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('paid_amount')->nullable();

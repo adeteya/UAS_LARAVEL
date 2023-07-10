@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hotel', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('room_id')->nullable()->index('fk_hotel_to_room');
-            $table->string('name');
-            $table->string('alamat');
-            $table->timestamps();
-            $table->softDeletes();
-            
+        Schema::table('room_photo', function (Blueprint $table) {
+            $table->foreign('room_id','fk_room_photo_to_room')->references('id')->on('room')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel');
+        Schema::table('room_photo', function (Blueprint $table) {
+            $table->dropForeign('fk_room_photo_to_room');
+        });
     }
 };

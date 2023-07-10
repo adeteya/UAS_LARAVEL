@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_detail', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id');
-            $table->foreignId('room_id');
+            $table->foreignId('order_id')->nullable()->index('fk_order_details_to_orders');
+            $table->foreignId('room_id')->nullable()->index('fk_order_details_to_room');
             $table->date('checkin_date')->nullable();
             $table->date('checkout_date')->nullable();
             $table->string('adult');
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_detail');
+        Schema::dropIfExists('order_details');
     }
 };
